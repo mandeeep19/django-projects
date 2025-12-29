@@ -13,7 +13,7 @@ def add_task(request):
     if not task:
         print("Task is empty!")
         return redirect('home')
-    
+    w
     try:
         with transaction.atomic():
             Task.objects.create(task=task)
