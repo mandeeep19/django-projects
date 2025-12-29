@@ -33,9 +33,9 @@
                     <div class="card-body">
                         {{ task.task }}
                         <span style="position: relative; float: right;">
-                            <!-- <a href="{#{% url 'mark_as_done' task.pk %}#}" class="btn btn-success"><i class="fa fa-check"></i> Mark as Done</a> -->
-                            <!-- <a href="{#{% url 'delete_task' task.id %}#}" class="btn btn-danger"><i class="fa fa-trash"></i></a> -->
-                            <!-- <a href="{#{% url 'edit_task' task.id %}#}" class="btn btn-primary"><i class="fa fa-pencil"></i></a> -->
+                            <a href="{% url 'task:mark_as_done' task.pk %}" class="btn btn-success"><i class="fa fa-check"></i> Mark as Done</a>
+                            <a href="{% url 'task:delete_task' task.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{% url 'task:edit_task' task.id %}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                         </span>
                     </div>
                 </div>
@@ -44,12 +44,12 @@
             <div class="col-md-5 col-lg-5">
                 <h5>Completed Tasks</h5>
                 <!-- List of all the tasks that have completed -->
-                {% for task in completed_tasks %}
+                {% for task in ctasks %}
                 <div class="card m-1">
                     <div class="card-body">
                         {{ task.task }}
                         <span style="position: relative; float: right;">
-                            <!-- <a href="{% url 'mark_as_undone' task.pk %}" class="btn btn-danger"><i class="fa fa-times"></i> Mark as Undone</a> -->
+                            <a href="{% url 'task:mark_as_undone' task.pk %}" class="btn btn-danger"><i class="fa fa-times"></i> Mark as Undone</a>
                         </span>
                     </div>
                 </div>
@@ -57,17 +57,23 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-lg-6 p-0 b-0" style="position: absolute; bottom: 50px;">
-                <!-- Add a task form -->
-                <form action="{% url 'task:addTask' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <span style="display: flex;">
-                            <input type="text" name="task" class="form-control" placeholder="Add a task">
-                            <button type="submit" class="btn btn-primary" style="width: 200px;"><i class="fa fa-plus"></i> Add</button>
-                        </span>
-                    </div>
-                </form>
+            <!-- ADD TASK FORM -->
+            <div class="row mt-4">
+                <div class="col-md-7">
+                    <form action="{% url 'task:addTask' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text"
+                                name="task"
+                                class="form-control"
+                                placeholder="Add a task"
+                                required>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
